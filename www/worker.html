@@ -13,6 +13,7 @@
 </head>
 <body>
     <h1>Tabel Daftar Pekerja</h1>
+    <form id="form-worker" action="" method="POST">
     <table id="table-worker">
         <tbody>
             <tr>
@@ -27,18 +28,19 @@
             </tr>
 
             <tr id='add-worker-tr'>
-                <td></td>
-                <td><input placeholder='nama...'></input></td>
-                <td><input placeholder='alamat...'></input></td>
-                <td><input placeholder='email...'></input></td>
-                <td><input placeholder='no hp...'></input></td>
-                <td><input placeholder='biografi...'></input></td>
-                <td><input type='file' placeholder='foto...'></input></td>
+                <td><input class="data-input" type='text' placeholder='ID...'></td>
+                <td><input class="data-input" type='text' placeholder='nama...'></td>
+                <td><input class="data-input" type='text' placeholder='alamat...'></td>
+                <td><input class="data-input" type='text' placeholder='email...'></td>
+                <td><input class="data-input" type='text' placeholder='no hp...'></td>
+                <td><input class="data-input" type='text' placeholder='biografi...'></td>
+                <td><input class="data-input" type='file' placeholder='foto...'></td>
                 <td><button type='submit'>Tambah data pekerja</button></td>
             </tr>
-            
+
         </tbody>
     </table>
+    </form>
 </body>
 <script type="text/javascript" src="worker.js"></script>
 </html>
