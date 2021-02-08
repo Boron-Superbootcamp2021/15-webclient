@@ -8,20 +8,29 @@ const thead = document
   .getElementsByTagName('tr')[0];
 const ttail = document.getElementById('add-worker-tr');
 const form = document.getElementById('form-worker');
-const input = document.getElementsByClassName('data-input');
+const dataName = document.getElementById('data-nama');
+const dataAddress = document.getElementById('data-alamat');
+const dataEmail = document.getElementById('data-email');
+const dataNohp = document.getElementById('data-nohp');
+const dataBiografi = document.getElementById('data-biografi');
+const dataPhoto = document.getElementById('data-foto');
+
+function getLastID() {
+    const state = store$.getState();
+    let result = state[state.length - 1].id;
+    return result;
+}
 
 form.onsubmit = (event) => {
   event.preventDefault();
-  let worker = {
-    payload: {
-      id: input[0].value,
-      name: input[1].value,
-      address: input[2].value,
-      email: input[3].value,
-      nohp: input[4].value,
-      biografi: input[5].value,
-      photo: input[6].value,
-    },
+  const worker = {
+      id: (getLastID()+1),
+      name: dataName.value,
+      address: dataAddress.value,
+      email: dataEmail.value,
+      nohp: dataNohp.value,
+      biografi: dataBiografi.value,
+      photo: dataPhoto.value,
   };
   console.log(worker);
   if (!worker?.length) {
@@ -29,9 +38,6 @@ form.onsubmit = (event) => {
   }
   // dispatch action add
   store$.dispatch(addWorkerAsync(worker));
-  for (let i = 0; i < input.length; i++) {
-    input[i].value = '';
-  }
 };
 
 // presentation layer
