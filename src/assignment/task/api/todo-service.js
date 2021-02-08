@@ -5,7 +5,9 @@ async function fetchTasksApi() {
 }
 
 async function addTaskApi(task) {
-  return await client.post('http://localhost:9999/store', { task });
+  return await client.post('http://localhost:9999/task', task, {
+    headers: {'Content-Type':"multipart/form-data"}
+  });
 }
 
 async function doneTaskApi(id) {
