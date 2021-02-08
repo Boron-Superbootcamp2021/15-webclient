@@ -1,5 +1,5 @@
 const { dispatch } = require('rxjs/internal/observable/pairs');
-const { fetchTasksApi, addTaskApi, doneTaskApi, undoneTaskApi, cancelTaskApi } = require('../api/todo-service');
+const { fetchTasksApi, addTaskApi, doneTaskApi, undoneTaskApi, cancelTaskApi } = require('../api/task-service');
 const {
   addAction,
   doneAction,

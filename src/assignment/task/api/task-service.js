@@ -1,13 +1,18 @@
 const { client } = require('./client');
+const { fetchWorkersApi} = require('../../worker/api/worker-service')
 
 async function fetchTasksApi() {
   return await client.get('http://localhost:9999/getalltask');
 }
 
 async function addTaskApi(task) {
-  return await client.post('http://localhost:9999/task', task, {
+  const workers = await fetchWorkersApi()
+  const worker = workers.find((t) => t.name == task.name);
+  task.assignee = worker.id;
+  await client.post('http://localhost:9999/task', task, {
     headers: {'Content-Type':"multipart/form-data"}
   });
+  return task;
 }
 
 async function doneTaskApi(id) {

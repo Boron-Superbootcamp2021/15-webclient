@@ -14,9 +14,7 @@ async function client(endpoint, { method, body, ...customConf } = {}) {
     config.body = JSON.stringify(body);
   }
   else if (config.headers['Content-Type'] == 'multipart/form-data' ){
-    body.assignee = body.assignee.name;
     const formData = new FormData();
-
     for (const name in body) {
       formData.append(name, body[name]);
     }

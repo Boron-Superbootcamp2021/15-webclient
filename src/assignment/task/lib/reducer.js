@@ -4,12 +4,14 @@ const initialState = [
 
 // reduce function
 function add(state, action) {
-  state.push({ id: action.payload.id,
-     job: action.payload.job, 
-     detail: action.payload.detail , 
-     attach: action.payload.attach, 
-     assignee: action.payload.assignee.name, 
-     done: action.payload.done });
+  state.push({
+    id: action.payload.id,
+    job: action.payload.job,
+    detail: action.payload.detail,
+    attach: action.payload.attach,
+    assignee: { name: action.payload.name },
+    done: action.payload.done
+  });
   return state;
 }
 
@@ -27,8 +29,8 @@ function undone(state, action) {
 
 function cancel(state, action) {
   const task = state.find((t) => t.id === action.payload);
-  let result  = state.indexOf(task);
-  state.splice(result,1);
+  let result = state.indexOf(task);
+  state.splice(result, 1);
   task.done = 0;
   return state;
 }

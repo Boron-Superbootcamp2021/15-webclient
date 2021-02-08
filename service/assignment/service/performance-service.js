@@ -68,7 +68,6 @@ function loggingMsg(from, status){
 
 function main() {
   subscriber();
-  loggingMsg("totalWorkers","oke");
 }
 
 
