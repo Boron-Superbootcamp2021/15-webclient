@@ -11,7 +11,8 @@ const {
   storeTaskService,
   getTaskService,
   upTaskService,
-  softDeleteTaskService
+  softDeleteTaskService,
+  downTaskService
 } = require('./task-service');
 const { init } = require('../database/typeorm/main');
 const { getConnection } = require('typeorm');
@@ -19,6 +20,18 @@ const { getConnection } = require('typeorm');
 
 function initServer() {
   const server = createServer(async (req, res) => {
+    // handle preflight request
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Request-Method', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', '*');
+
+    if (req.method === 'OPTIONS') {
+      res.writeHead(204);
+      res.end();
+      return;
+    }
+    
     const conn = getConnection().isConnected;
     if (!conn) {
       await init()
@@ -85,6 +98,14 @@ function initServer() {
       case uri.pathname === '/updatetask':
         if (method === 'PUT') {
           upTaskService(req, res);
+        } else {
+          message = 'Method tidak tersedia';
+          respond();
+        }
+        break;
+      case uri.pathname === '/downtask':
+        if (method === 'PUT') {
+          downTaskService(req, res);
         } else {
           message = 'Method tidak tersedia';
           respond();
