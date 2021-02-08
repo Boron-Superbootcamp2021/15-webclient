@@ -40,6 +40,18 @@ async function taskSelesai(id) {
         throw err;
     }
 }
+async function untaskSelesai(id) {
+    try {
+        const testTask = await getonetask(id);
+        if (!testTask) {
+            throw ERROR_TASK_NOT_FOUND;
+        }
+        const task = await updateData(id, 2);
+        return task;
+    } catch (err) {
+        throw err;
+    }
+}
 //status 0 merupakan task batal
 async function taskBatal(id) {
     try {
@@ -59,6 +71,7 @@ module.exports = {
     list,
     taskSelesai,
     taskBatal,
+    untaskSelesai,
     ERROR_REGISTER_DATA_INVALID,
     ERROR_WORKER_NOT_FOUND,
     ERROR_TASK_NOT_FOUND

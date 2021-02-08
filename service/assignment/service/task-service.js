@@ -1,9 +1,9 @@
 const Busboy = require('busboy');
 const url = require('url');
 const { register, taskSelesai, taskBatal, ERROR_REGISTER_DATA_INVALID, list, ERROR_WORKER_NOT_FOUND,
-  ERROR_TASK_NOT_FOUND } = require('./task-logic');
+  ERROR_TASK_NOT_FOUND, untaskSelesai } = require('./task-logic');
 const { upload } = require('../database/typeorm/storage');
-const { loggingMsg } = require('./performance-service')
+const { loggingMsg } = require('./performance-service');
 
 function storeTaskService(req, res) {
   const busboy = new Busboy({ headers: req.headers });
@@ -76,7 +76,39 @@ async function upTaskService(req, res) {
   try {
     await taskSelesai(id);
     res.statusCode = 200;
-    res.write(`Update ID dengan ${id}`);
+    let string = `Update ID dengan ${id}`;
+    res.write(JSON.stringify(string));
+    loggingMsg('finish', res.statusCode);
+    res.end();
+  } catch (err) {
+    if (err === ERROR_TASK_NOT_FOUND) {
+      res.statusCode = 404;
+      res.write(err);
+      loggingMsg('finish', res.statusCode);
+      res.end();
+      return;
+    }
+    res.statusCode = 500;
+    loggingMsg('finish', res.statusCode);
+    res.end();
+    return;
+  }
+}
+
+async function downTaskService(req, res) {
+  const uri = url.parse(req.url, true);
+  const id = uri.query['id'];
+  if (!id) {
+    res.statusCode = 401;
+    res.write('parameter id tidak ditemukan');
+    loggingMsg('finish', res.statusCode);
+    res.end();
+    return;
+  }
+  try {
+    await untaskSelesai(id);
+    res.statusCode = 200;
+    res.write(JSON.stringify(`downdate ID dengan ${id}`));
     loggingMsg('finish', res.statusCode);
     res.end();
   } catch (err) {
@@ -107,7 +139,8 @@ async function softDeleteTaskService(req, res) {
   try {
     await taskBatal(id);
     res.statusCode = 200;
-    res.write(`batalkan task dengan ${id}`);
+    const string = `batalkan task dengan ${id}`;
+    res.write(JSON.stringify(string));
     loggingMsg('cancel', res.statusCode);
     res.end();
   } catch (err) {
@@ -140,5 +173,6 @@ module.exports = {
   storeTaskService,
   getTaskService,
   upTaskService,
-  softDeleteTaskService
+  softDeleteTaskService,
+  downTaskService
 };
