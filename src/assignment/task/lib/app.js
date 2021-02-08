@@ -8,7 +8,6 @@ const {
     cancelTaskAsync,
 } = require('./task-client');
 
-const { addAction } = require('./store');
 
 // view
 const btnTambah = document.getElementById('button-tambah');
@@ -43,7 +42,7 @@ form.onsubmit = (event) => {
         done: 2,
     };
     // dispatch action add
-    store$.dispatch(addAction(task));
+    store$.dispatch(addTaskAsync(task));
 };
 
 // presentation layer

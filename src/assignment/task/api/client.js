@@ -10,13 +10,23 @@ async function client(endpoint, { method, body, ...customConf } = {}) {
     },
   };
 
-  if (body) {
+  if (config.headers['Content-Type'] == 'application/json') {
     config.body = JSON.stringify(body);
+  }
+  else if (config.headers['Content-Type'] == 'multipart/form-data' ){
+    body.assignee = body.assignee.name;
+    const formData = new FormData();
+
+    for (const name in body) {
+      formData.append(name, body[name]);
+    }
+    config.body = formData;
+    config.headers = {};
   }
 
   let data;
   try {
-    const response = await window.fetch(endpoint, config);
+     const response = await window.fetch(endpoint, config);
     data = await response.json();
     if (!response.ok) {
       throw new Error(data.statusText);
