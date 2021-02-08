@@ -1,5 +1,6 @@
 require('./app.css');
-const { store$, cancelTasksAction } = require('./store');
+const { store$ } = require('./store');
+const worker = require('../../worker/worker/store');
 const {
     addTaskAsync,
     loadTasksAsync,
@@ -29,20 +30,18 @@ btnTambah.addEventListener("click", () => {
 
 
 
-form.onsubmit = (event) => {
+form.onsubmit = async (event) => {
     event.preventDefault();
     const task = {
         id: (getLastID() + 1),
         job: inputName.value,
         detail: inputDetail.value,
         attach: inputAttachment.value,
-        assignee: {
-            name: inputAssignee.value
-        },
+        name: inputAssignee.value,
         done: 2,
     };
     // dispatch action add
-    store$.dispatch(addTaskAsync(task));
+    await store$.dispatch(addTaskAsync(task));
 };
 
 // presentation layer
@@ -79,7 +78,7 @@ function render(state) {
                 // dispatch action done
                 store$.dispatch(undoneTaskAsync(data.id));
             };
-        }else {
+        } else {
             job.className = '';
             btnSelesai.onclick = function () {
                 // dispatch action done
@@ -93,7 +92,7 @@ function render(state) {
         if (data.done != 0) {
             main.append(newCard);
         }
-        
+
     }
 }
 
