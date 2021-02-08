@@ -6,13 +6,54 @@
     <title>State Management</title>
   </head>
   <body>
-    <form id="todo-form" action="" method="post">
-      <input type="text" id="todo" placeholder="tulis kerjaan baru kamu..." />
-      <button type="submit">tambah</button>
-    </form>
-    <hr />
-    <h4>daftar kerjaans</h4>
-    <ol id="todo-list"></ol>
+    <h1>Task Manager</h1>
+    <div style="border: 2px solid black">
+      <h3
+        id="button-tambah"
+        style="cursor: pointer; margin: 10px; text-align: center"
+      >
+        Tambah Task
+      </h3>
+      <center>
+        <form
+          id="task-form"
+          action=""
+          method="post"
+          style="padding: 10px; width: 18rem; display: none"
+        >
+          <label for="task-name"> Name Task</label>
+          <input type="text" name="task-name" id="task-name" /><br />
+          <label for="task-detail"> detail Task</label>
+          <input type="text" name="task-detail" id="task-detail" /><br />
+          <label for="task-attachment"> Attachment Task</label>
+          <input
+            type="file"
+            name="task-attachment"
+            id="task-attachment"
+          /><br />
+          <label for="task-assignee"> Assignne Task</label>
+          <input type="text" name="task-assignee" id="task-assignee" /><br />
+          <button type="submit">tambah</button>
+        </form>
+      </center>
+    </div>
+    <div id="main" style="display: flex"></div>
+    <div
+      id="card"
+      style="width: 18rem; border: 2px solid black; margin: 10px; display: none"
+    >
+      <div style="margin: 5px">
+        <h id="job">Job</h>
+        <p id="detail">
+          Some quick example text to build on the card title and make up the
+          bulk of the card's content.
+        </p>
+        <h5 id="assignee">dikerjain oleh</h5>
+        <h5 id="attach">asdasdas.jpg</h5>
+        <span style="cursor: pointer" id="button-selesai">Selesai</span>
+        <span style="cursor: pointer" id="button-batal">Batal</span>
+      </div>
+    </div>
   </body>
 
   <script type="text/javascript" src="./task.js"></script>
