@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+    <title>Daftar Pekerja</title>
+</head>
+<body>
+    <h1>Tabel Daftar Pekerja</h1>
+    <table id="table-worker">
+        <tbody>
+            <tr>
+                <th>ID</th>
+                <th>Nama</th>
+                <th>Alamat</th>
+                <th>Email</th>
+                <th>No HP</th>
+                <th>Biografi</th>
+                <th>Foto</th>
+                <th>Action</th>
+            </tr>
+
+            <tr id='add-worker-tr'>
+                <td></td>
+                <td><input placeholder='nama...'></input></td>
+                <td><input placeholder='alamat...'></input></td>
+                <td><input placeholder='email...'></input></td>
+                <td><input placeholder='no hp...'></input></td>
+                <td><input placeholder='biografi...'></input></td>
+                <td><input type='file' placeholder='foto...'></input></td>
+                <td><button type='submit'>Tambah data pekerja</button></td>
+            </tr>
+            
+        </tbody>
+    </table>
+</body>
+<script type="text/javascript" src="worker.js"></script>
+</html>
